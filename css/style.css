@@ -484,6 +484,31 @@ canvas {
   color: rgba(255,255,255,.4);
 }
 
+/* --- 属性显示标签 --- */
+.upg-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  max-width: 180px;
+  margin-top: 2px;
+}
+
+.upg-tag {
+  background: rgba(255,255,255,.08);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 10px;
+  color: #ddd;
+  white-space: nowrap;
+}
+
+.upg-tag i {
+  font-style: normal;
+  color: #f1c40f;
+  margin-left: 2px;
+  font-weight: 700;
+}
+
 /* --- 响应式 (手机屏幕) --- */
 @media (max-width: 600px) {
   .hpBarOuter, .xpBarOuter { width: 90px; }

@@ -29,7 +29,7 @@ let iceWalls = []; // 冰墙
 let gameTime = 0;             // 已过去秒数
 let sharedLv = 1;             // 合作模式共享等级
 let sharedXp = 0;
-let sharedXpTo = 12;
+let sharedXpTo = 20;
 let kills = 0;
 let spawnTimer = 0;           // 敌人生成倒计时
 let bossSpawned = false;
@@ -176,7 +176,7 @@ function update(dt) {
           }
 
           spawnParticles(e.x, e.y, e.color, 10, 100);
-          const xpAmt = e.xp * (1 + (gameMode === 'cooperative' ? sharedLv : 1) * .02);
+          const xpAmt = e.xp * (1 + (gameMode === 'cooperative' ? sharedLv : 1) * .01);
           spawnGem(e.x, e.y, xpAmt);
           floatText(e.x, e.y - 10, '+' + Math.floor(xpAmt) + 'XP', '#2ecc71');
           enemies.splice(j, 1);
@@ -333,13 +333,13 @@ function update(dt) {
           while (sharedXp >= sharedXpTo) {
             sharedXp -= sharedXpTo;
             sharedLv++;
-            sharedXpTo = Math.floor(12 * Math.pow(1.22, sharedLv - 1));
+            sharedXpTo = Math.floor(20 * Math.pow(1.35, sharedLv - 1));
             showUpgradeCoop();
             SND.lvlUp();
           }
         } else if (gameMode === 'survival') {
           // 生存：各自升级
-          if (!pl.xp) { pl.xp = 0; pl.xpTo = 12; pl.lv = 1; }
+          if (!pl.xp) { pl.xp = 0; pl.xpTo = 20; pl.lv = 1; }
           pl.xp += xpGain;
           spawnParticles(g.x, g.y, '#2ecc71', 4, 40);
           SND.xp();
@@ -347,13 +347,13 @@ function update(dt) {
           while (pl.xp >= pl.xpTo) {
             pl.xp -= pl.xpTo;
             pl.lv++;
-            pl.xpTo = Math.floor(12 * Math.pow(1.22, pl.lv - 1));
+            pl.xpTo = Math.floor(20 * Math.pow(1.35, pl.lv - 1));
             showUpgradeSurvival(pl);
             SND.lvlUp();
           }
         } else {
           // 单人
-          if (!pl.xp) { pl.xp = 0; pl.xpTo = 12; pl.lv = 1; }
+          if (!pl.xp) { pl.xp = 0; pl.xpTo = 20; pl.lv = 1; }
           pl.xp += xpGain;
           spawnParticles(g.x, g.y, '#2ecc71', 4, 40);
           SND.xp();
@@ -361,7 +361,7 @@ function update(dt) {
           while (pl.xp >= pl.xpTo) {
             pl.xp -= pl.xpTo;
             pl.lv++;
-            pl.xpTo = Math.floor(12 * Math.pow(1.22, pl.lv - 1));
+            pl.xpTo = Math.floor(20 * Math.pow(1.35, pl.lv - 1));
             showUpgradeSingle();
             SND.lvlUp();
           }
@@ -552,7 +552,7 @@ function enterMenu() {
   gameTime = 0;
   sharedLv = 1;
   sharedXp = 0;
-  sharedXpTo = 12;
+  sharedXpTo = 20;
   kills = 0;
   spawnTimer = 0;
   bossSpawned = false;

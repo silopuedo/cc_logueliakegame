@@ -114,7 +114,7 @@ function initGame() {
   gameTime = 0;
   sharedLv = 1;
   sharedXp = 0;
-  sharedXpTo = 12;
+  sharedXpTo = 20;
   kills = 0;
   spawnTimer = 0;
   bossSpawned = false;

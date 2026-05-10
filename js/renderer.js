@@ -247,8 +247,9 @@ function render() {
 
 function updateUI() {
   if (players.length === 1) {
-    // 单人: 1套血条+经验
+    // 单人: 1套血条+经验+属性显示
     const pl = players[0];
+    const upgHtml = buildUpgHtml(upgLvs);
     p1UI.innerHTML = `
       <div class="ui-box">
         <span style="color:#5dade2">⛊</span>
@@ -262,7 +263,9 @@ function updateUI() {
           <div class="xpBar" style="width:${pl.xp ? Math.min(100, pl.xp / pl.xpTo * 100) : 0}%"></div>
         </div>
       </div>
-      <div class="ui-box">Lv.${sharedLv || pl.lv || 1}</div>`;
+      <div class="ui-box">Lv.${pl.lv || 1}</div>
+      ${upgHtml ? `<div class="upg-bar">${upgHtml}</div>` : ''}`;
+  } else {
   } else {
     // 多人: 每人1套
     const r0 = players[0].role || '';
@@ -285,7 +288,8 @@ function updateUI() {
           <div class="xpBar" style="width:${players[0].xp ? Math.min(100, players[0].xp / players[0].xpTo * 100) : 0}%"></div>
         </div>
       </div>
-      <div class="ui-box">Lv.${players[0].lv || 1}</div>`;
+      <div class="ui-box">Lv.${players[0].lv || 1}</div>
+      ${buildUpgHtml(upgLvs[0] || {}) ? `<div class="upg-bar">${buildUpgHtml(upgLvs[0] || {})}</div>` : ''}`;
 
     p2UI.style.display = 'flex';
     p2UI.innerHTML = `
@@ -303,7 +307,9 @@ function updateUI() {
           <div class="xpBar" style="width:${players[1].xp ? Math.min(100, players[1].xp / players[1].xpTo * 100) : 0}%"></div>
         </div>
       </div>
-      <div class="ui-box" style="text-align:right">Lv.${players[1].lv || 1}</div>`;
+      <div class="ui-box" style="text-align:right">Lv.${players[1].lv || 1}</div>
+      ${buildUpgHtml(upgLvs[1] || {}) ? `<div class="upg-bar" style="justify-content:flex-end">${buildUpgHtml(upgLvs[1] || {})}</div>` : ''}`;
+  }
   }
 
   // 合作模式额外信息
@@ -316,7 +322,27 @@ function updateUI() {
     coopInfo.style.display = 'none';
   }
 
-  // 计时器
+// ---- 计时器
   const m = Math.floor(gameTime / 60), s = Math.floor(gameTime % 60);
   statTime.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+}
+
+// ================================================================
+//  升级显示辅助
+// ================================================================
+// 把 upgLvs 对象转成紧凑的 HTML 标签串
+// 例: { damage:3, attSpd:2 } → "⚔攻×3 ⚡速×2"
+
+const UPG_MAP = {};                     // id → {name, icon} 快速查找
+CFG.upgrades.forEach(u => UPG_MAP[u.id] = u);
+CFG.coopUpgrades.forEach(u => UPG_MAP[u.id] = u);
+
+function buildUpgHtml(upgObj) {
+  const tags = [];
+  for (const [id, lv] of Object.entries(upgObj)) {
+    if (lv > 0 && UPG_MAP[id]) {
+      tags.push(`<span class="upg-tag">${UPG_MAP[id].icon}${UPG_MAP[id].name}<i>${lv}</i></span>`);
+    }
+  }
+  return tags.join('');
 }

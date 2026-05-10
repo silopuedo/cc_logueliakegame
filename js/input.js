@@ -12,6 +12,15 @@ const keys = {};
 document.addEventListener('keydown', e => {
   keys[e.key.toLowerCase()] = true;
 
+  // 升级面板打开时，数字键 1/2/3 快速选择
+  if (upgrading && ['1', '2', '3'].includes(e.key)) {
+    e.preventDefault();
+    const cards = upgradeChoices.children;
+    const idx = parseInt(e.key) - 1;
+    if (cards[idx]) cards[idx].click();
+    return;
+  }
+
   // 游戏中按 Escape 暂停
   if (gameState === 'playing') {
     if (e.key === 'Escape') {
