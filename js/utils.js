@@ -13,6 +13,40 @@ const $ = id => document.getElementById(id);
 const canvas = $('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+// ---- 游戏 UI 元素引用 ----
+// HUD
+const pauseBtn = $('pauseBtn');
+const ui = $('ui');
+const p1UI = $('p1UI');
+const p2UI = $('p2UI');
+const statTime = $('statTime');
+const statKills = $('statKills');
+const coopInfo = $('coopInfo');
+const skillInd = $('skillIndicator');
+const playerTag = $('playerTag');
+const waveBanner = $('waveBanner');
+
+// 触屏摇杆
+const jA1 = $('jArea1');
+const jA2 = $('jArea2');
+
+// 菜单界面
+const startScreen = $('startScreen');
+const howScreen = $('howScreen');
+const modeScreen = $('modeScreen');
+const roleScreen = $('roleScreen');
+const pauseScreen = $('pauseScreen');
+
+// 升级面板
+const upgradePanel = $('upgradePanel');
+const upgradeChoices = $('upgradeChoices');
+const upgradeSub = $('upgradeSub');
+
+// 游戏结束
+const gameOverScreen = $('gameOver');
+const goSub = $('goSub');
+const goStats = $('goStats');
+
 // ---- 数学工具 ----
 // 两点距离
 function dist(a, b) {
