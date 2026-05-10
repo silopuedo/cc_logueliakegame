@@ -266,7 +266,6 @@ function updateUI() {
       <div class="ui-box">Lv.${pl.lv || 1}</div>
       ${upgHtml ? `<div class="upg-bar">${upgHtml}</div>` : ''}`;
   } else {
-  } else {
     // 多人: 每人1套
     const r0 = players[0].role || '';
     const r1 = players[1].role || '';
@@ -309,7 +308,6 @@ function updateUI() {
       </div>
       <div class="ui-box" style="text-align:right">Lv.${players[1].lv || 1}</div>
       ${buildUpgHtml(upgLvs[1] || {}) ? `<div class="upg-bar" style="justify-content:flex-end">${buildUpgHtml(upgLvs[1] || {})}</div>` : ''}`;
-  }
   }
 
   // 合作模式额外信息
